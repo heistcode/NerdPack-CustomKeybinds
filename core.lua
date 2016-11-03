@@ -25,7 +25,7 @@ local KeyboardCallback = function(key, down, button)
 end
 
 NeP.DSL:Register("customkeybind", function(_, key)
-	key = key:upper()
+	key = key:upper():gsub(" ", "-")
 	return KeyboardKeyDown[key] or false
 end)
 

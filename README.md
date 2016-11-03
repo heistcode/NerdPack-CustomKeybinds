@@ -20,7 +20,7 @@ NeP.CustomKeybind:Add("<group name>", "<key>", <callback>)
 NeP.CustomKeybind:Remove("<group name>", "<key>")
 NeP.CustomKeybind:RemoveAll("<group name>")
 <group name> = string identifying a group of keybinds (e.g. your CR name or some other way you wish to group the keybinds)
-<key> = string of a case insensitive but otherwise a valid keybind (e.g. "Q", "SHIFT-F1", "ALT-CTRL-SHIFT-`", "s" or "shift-home"). Keys are not verified so if the key is not valid it probably will fail silently. The modifier prefix order is "ALT-CTRL-SHIFT-".
+<key> = string, case insensitive but otherwise a valid keybind using a space instead of a dash (e.g. "Q", "SHIFT F1", "ALT CTRL SHIFT-`", "s" or "shift home"). Keys are not verified so if the key is not valid it probably will fail silently. The modifier prefix order is "ALT CTRL SHIFT ".
 <callback> = an optional function that will fire when the button is pressed or released passing key:upper() and a BOOLEAN of whether the button was pressed down or not (e.g. callback(key, down))
 ```
 
