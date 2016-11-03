@@ -1,0 +1,7 @@
+## Title: |r[|cff0070deNerdPack|r] Custom Keybinds
+## Notes: A plugin for NerdPack.
+## Dependencies: NerdPack-Protected
+## Interface: 70100
+## Author: heist
+
+core.lua
