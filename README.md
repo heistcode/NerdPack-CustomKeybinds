@@ -4,14 +4,17 @@ Plugin for NerdPack
 Create custom keybinds for use in NerdPack CRs.
 
 Installing:
+
 Add NerdPack-CustomKeybinds to the Dependencies for your CR or otherwise prepare for the eventuality of loading your CR without loading NerdPack-CustomKeybinds (using the API without NerdPack-CustomKeybinds loaded may throw errors).
 
 To do this add this line to your .toc:
+
 ```
 ## Dependencies: NerdPack, NerdPack-CustomKeybinds
 ```
 
 API for creating a keybind is the following:
+
 ```
 NeP.CustomKeybind:Add("<group name>", "<key>", <callback>)
 NeP.CustomKeybind:Remove("<group name>", "<key>")
@@ -22,12 +25,14 @@ NeP.CustomKeybind:RemoveAll("<group name>")
 ```
 
 Combat Routine condition:
+
 ```
 "customkeybind(<key>)"
 <key> = case insensitive key. If the keybind hasn't been added or was removed the condition will simply not fire, there won't be an error
 ```
 
 Example:
+
 ```
 ExampleCallback = function(key, down) print(key .. " was ".. down and "pressed down" or "released") end
 CR = {
