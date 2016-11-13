@@ -9,11 +9,11 @@ local next                    = next
 local type                    = type
 local NeP                     = NeP
 
-CK.Version                    = 0.1
+CK.Version                    = 0.11
 
 local KeyboardKeyDown, KeybindGroups = {}, {}
 
-local KeyboardCallback = function(key, down, button)
+local function KeyboardCallback(key, down, button)
 	if down then
 		KeyboardKeyDown[key] = true
 	else
@@ -29,9 +29,9 @@ NeP.DSL:Register("customkeybind", function(_, key)
 	return KeyboardKeyDown[key] or false
 end)
 
-local noop = function() end
+local function noop() end
 
-local checktype = function(item, correcttype)
+local function checktype(item, correcttype)
   assert(type(item) == correcttype, "Invalid type. Expected: "..correcttype)
 end
 
@@ -42,11 +42,14 @@ function CK:Add(group, key, callback)
   checktype(key, "string")
   if callback then checktype(callback, "function") end
   key = key:upper()
-  self.CreatedKeybinds[key] = self.CreatedKeybinds[key] or CreateFrame("BUTTON", "NePCustomKeybind"..key)
+  self.CreatedKeybinds[key] = self.CreatedKeybinds[key] or
+			CreateFrame("BUTTON", "NePCustomKeybind"..key)
   self.CreatedKeybinds[key].callback = self.CreatedKeybinds[key].callback or {}
   self.CreatedKeybinds[key].callback[group] = callback or noop
 	SetOverrideBindingClick(self.CreatedKeybinds[key], true, key, self.CreatedKeybinds[key]:GetName())
-	self.CreatedKeybinds[key]:SetScript("OnClick", function(button, _, down) KeyboardCallback(key, down, button) end)
+	self.CreatedKeybinds[key]:SetScript("OnClick", function(button, _, down)
+		KeyboardCallback(key, down, button)
+	end)
 	self.CreatedKeybinds[key]:RegisterForClicks("AnyUp", "AnyDown")
   KeybindGroups[group] = KeybindGroups[group] or {}
   KeybindGroups[group][key] = self.CreatedKeybinds[key]
@@ -56,7 +59,10 @@ function CK:Remove(group, key)
   checktype(group, "string")
   checktype(key, "string")
   key = key:upper()
-  if not self.CreatedKeybinds[key] or not KeybindGroups[group] or not KeybindGroups[group][key] then return end
+  if not self.CreatedKeybinds[key] or not KeybindGroups[group] or
+			not KeybindGroups[group][key] then
+		return
+	end
   self.CreatedKeybinds[key].callback[group] = nil
   KeybindGroups[group][key] = nil
   if next(self.CreatedKeybinds[key].callback) == nil then
